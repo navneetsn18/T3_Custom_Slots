@@ -230,17 +230,17 @@ def sendTestMessage(channel_id, token):
 def slotBooking(selectedSlots, token, backup_token):
 
     index = 0
-
     while True:
         current_time = datetime.now(timezone("Asia/Kolkata")).strftime("%H:%M:%S")
         target_time = data[str(index)]["execution_time"]
         next_target_time = (datetime.strptime(
             target_time, "%H:%M:%S") + timedelta(minutes=1)).strftime("%H:%M:%S")
-
+        print("Current time: "+current_time+" Next Target Time: "+next_target_time)
         if selectedSlots[index]:
             
             if current_time >= target_time and current_time <= next_target_time:
                 flag = False
+                print("Will send a message now!!")
                 if sendMessage(data[str(index)]["channel_id"], token):
                     index += 1
                     flag = True
