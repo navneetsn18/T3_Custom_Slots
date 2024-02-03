@@ -1,6 +1,7 @@
 import json
 from datetime import datetime, timedelta
 from pytz import timezone 
+import time
 import requests
 from flask import Flask, request
 import threading
@@ -208,6 +209,7 @@ headers = {
 
 
 def sendMessage(channel_id, token):
+    print("Inside Sned Message")
     headers["Authorization"] = token
     url = url = "https://discord.com/api/v9/channels/"+channel_id+"/messages"
     response = requests.request("POST", url, headers=headers, data=payload)
@@ -236,6 +238,7 @@ def slotBooking(selectedSlots, token, backup_token):
         next_target_time = (datetime.strptime(
             target_time, "%H:%M:%S") + timedelta(minutes=1)).strftime("%H:%M:%S")
         print("Current time: "+current_time+" Next Target Time: "+next_target_time)
+        time.sleep(0.25)
         if selectedSlots[index]:
             
             if current_time >= target_time and current_time <= next_target_time:
