@@ -1,6 +1,6 @@
 import json
-import time
 from datetime import datetime, timedelta
+from pytz import timezone 
 import requests
 from flask import Flask, request
 import threading
@@ -211,7 +211,7 @@ def slotBooking(selectedSlots, token, backup_token):
     index = 0
 
     while True:
-        current_time = time.strftime("%H:%M:%S")
+        current_time = datetime.now(timezone("Asia/Kolkata")).strftime("%H:%M:%S")
         target_time = data[str(index)]["execution_time"]
         next_target_time = (datetime.strptime(
             target_time, "%H:%M:%S") + timedelta(minutes=1)).strftime("%H:%M:%S")
@@ -248,7 +248,7 @@ def run():
     token = request.args.get('token1')
     backup_token = request.args.get('token2')
 
-    print("Slot Booking Started on : "+datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    print("Slot Booking Started on : "+datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S.%f'))
 
     selectedSlots = [False,False,False, # 8 - 8:20
                      False,False,False, # 8:30 - 8:50
@@ -269,7 +269,7 @@ def run():
     else:
         return "Tokens Expired"
     
-    print("Slot Booking Ended on : "+datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    print("Slot Booking Ended on : "+datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S.%f'))
     return "Done"
 
 @app.route("/")
