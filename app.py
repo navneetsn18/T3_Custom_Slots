@@ -180,14 +180,35 @@ testPayload = json.dumps({
 })
 
 headers = {
-    'Cookie': '__dcfduid=71a5e270e21911eda7d527c35b533d1e; __sdcfduid=71a5e271e21911eda7d527c35b533d1eee1da1e23a275b8013c901c63bcaee7367cf44d366b133dafd9cadeee693dfa7; __cfruid=84f26683734a341bbf2183fe0872e1537c9142c2-1695244587; cf_clearance=u8dspIx6OXzjipIMSj1B_FVuZXGTsI3SMYf72PQY_sE-1695244592-0-1-7ab1e94a.8d7dd66c.2e092a70-0.2.1695244592; __cfruid=66fce3e8dbb31112285712e12fdce56b093da831-1695246154; __dcfduid=9e7dd8a657fe11eea37d0e3f2b1973ab; __sdcfduid=9e7dd8a657fe11eea37d0e3f2b1973abc74593cdc688e1f3eef563de743b29f38ba8ff6f4c18815c9c2157621ae95dd0',
-    'authorization': '',
-    'Content-Type': 'application/json'
+  "authority": "discord.com",
+  "method": "POST",
+  "scheme": "https",
+  "Accept": "*/*",
+  "Accept-Encoding": "gzip, deflate, br",
+  "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+  "Authorization": "",
+  "Content-Length": "505",
+  "Content-Type": "application/json",
+  "Cookie": "__dcfduid=98a26bb05fb311ee812e37455704b97f; __sdcfduid=98a26bb15fb311ee812e37455704b97f93f259c5e370d3de7441346312cc0958c998619ff509ac07915616f4c95987b2; _ga=GA1.1.443817457.1696093550; __cfruid=81cb73d76db9afbc222c2bae88a7c7a0b8ff5ef4-1706954315; _cfuvid=tLm5NRyT3yQxEh1DC3cCCdmK_7JyUjRPiZtnm5p7RrA-1706954315405-0-604800000; cf_clearance=GYlrm__WYLv7_Z0pMtsszQegG_1ESqc8vNymwu6IKEU-1706954319-1-ARDjFK/BJrgYz4icfO7Q2ymg6/CNqffoPFyh4lPxq4EOVeMzsytrfqOW7wDd67JDocwj3iYqvINDLhzh64Rw9Uk=; _gcl_au=1.1.1255555462.1706954330; OptanonConsent=isIABGlobal=false&datestamp=Sat+Feb+03+2024+15%3A28%3A50+GMT%2B0530+(India+Standard+Time)&version=6.33.0&hosts=&landingPath=https%3A%2F%2Fdiscord.com%2F&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1; _ga_Q149DFWHT7=GS1.1.1706954330.2.0.1706954330.0.0.0",
+  "Origin": "https://discord.com",
+  "Sec-Ch-Ua": "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\"",
+  "Sec-Ch-Ua-Mobile": "?0",
+  "Sec-Ch-Ua-Platform": "\"macOS\"",
+  "Sec-Fetch-Dest": "empty",
+  "Sec-Fetch-Mode": "cors",
+  "Sec-Fetch-Site": "same-origin",
+  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+  "X-Debug-Options": "bugReporterEnabled",
+  "X-Discord-Locale": "en-GB",
+  "X-Discord-Timezone": "Asia/Calcutta",
+  "X-Super-Properties": "eyJvcyI6Ik1hYyBPUyBYIiwiYnJvd3NlciI6IkNocm9tZSIsImRldmljZSI6IiIsInN5c3RlbV9sb2NhbGUiOiJlbi1HQiIsImJyb3dzZXJfdXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzE1XzcpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjEuMC4wLjAgU2FmYXJpLzUzNy4zNiIsImJyb3dzZXJfdmVyc2lvbiI6IjEyMS4wLjAuMCIsIm9zX3ZlcnNpb24iOiIxMC4xNS43IiwicmVmZXJyZXIiOiIiLCJyZWZlcnJpbmdfZG9tYWluIjoiIiwicmVmZXJyZXJfY3VycmVudCI6IiIsInJlZmVycmluZ19kb21haW5fY3VycmVudCI6IiIsInJlbGVhc2VfY2hhbm5lbCI6InN0YWJsZSIsImNsaWVudF9idWlsZF9udW1iZXIiOjI2MzU4MiwiY2xpZW50X2V2ZW50X3NvdXJjZSI6bnVsbH0="
 }
 
 
+
+
 def sendMessage(channel_id, token):
-    headers["authorization"] = token
+    headers["Authorization"] = token
     url = url = "https://discord.com/api/v9/channels/"+channel_id+"/messages"
     response = requests.request("POST", url, headers=headers, data=payload)
     if response.status_code == 200:
