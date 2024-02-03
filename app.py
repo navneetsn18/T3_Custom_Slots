@@ -238,11 +238,10 @@ def slotBooking(selectedSlots, token, backup_token):
         target_time = data[str(index)]["execution_time"]
         next_target_time = (datetime.strptime(
             target_time, "%H:%M:%S") + timedelta(minutes=1)).strftime("%H:%M:%S")
-        if timer<30:
+        if timer==0 or time == 30:
             print("Current time: "+current_time+" Next Target Time: "+next_target_time)
             timer+=1
         else:
-            print("Current time: "+current_time+" Next Target Time: "+next_target_time)
             timer = 0
         if selectedSlots[index]:
             
