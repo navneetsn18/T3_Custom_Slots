@@ -4,12 +4,9 @@ from pytz import timezone
 import time
 import requests
 from flask import Flask, request
-from celery import Celery
+import threading
 
 app = Flask(__name__)
-app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
 
 data = {
     "0": {
@@ -210,7 +207,7 @@ headers = {
 
 
 
-@celery.task
+
 def sendMessage(channel_id, token):
     print("Inside Sned Message")
     headers["Authorization"] = token
@@ -294,23 +291,25 @@ def run():
                      True]# 1
     if testLogin(token) and testLogin(backup_token):
         print("Tokens Loaded Successfully.")
-        task = slotBooking(selectedSlots,token,backup_token).delay()
+        thread = threading.Thread(target=slotBooking, args=(selectedSlots,token,backup_token,))
+        thread.start()
+        # slotBooking(selectedSlots,token,backup_token)
     else:
         return "Tokens Expired"
     
     print("Slot Booking Ended on : "+datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S.%f'))
-    return "Done"+task.id
+    return "Done"
 
-@celery.task
 def testFunction():
-    for i in range(10):
+    for i in range(300):
         print(i)
         time.sleep(i)
 
 @app.route("/test")
 def test():
-    task = testFunction().delay()
-    return "Testing Completed"+task.id
+    task = threading.Thread(target=testFunction)
+    task.start()
+    return "Testing Completed"
 
 @app.route("/")
 def home():
