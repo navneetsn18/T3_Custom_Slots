@@ -291,8 +291,7 @@ def run():
                      True]# 1
     if testLogin(token) and testLogin(backup_token):
         print("Tokens Loaded Successfully.")
-        thread = threading.Thread(target=slotBooking, args=(selectedSlots,token,backup_token,))
-        thread.start()
+        slotBooking(selectedSlots,token,backup_token)
         # slotBooking(selectedSlots,token,backup_token)
     else:
         return "Tokens Expired"
